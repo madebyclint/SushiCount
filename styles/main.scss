@@ -1,0 +1,146 @@
+/**
+ *
+ * Sushi Count Styles
+ * Option 1
+ *
+ * Author: Clint Bush | @madebyclint - Twitter
+ *
+ */
+
+ /*===============================
+ =            IMPORTS            =
+ ===============================*/
+
+ @import url('http://fonts.googleapis.com/css?family=Sansita+One');
+
+
+
+/*=================================
+=            VARIABLES            =
+=================================*/
+
+// In critical.css
+// $standardPadding: 2rem;
+
+
+// COLORS
+
+$red-vibrant: #CE0000;
+$red-vibrant-dark: darken($red-vibrant, .0);
+
+
+
+/*===================================================
+=            MIXINS/FUNCTIONS/EXTENSIONS            =
+===================================================*/
+
+@mixin text-border($color) {
+    text-shadow:
+         2px -2px 0 $color,
+         2px -1px 0 $color,
+         2px  0px 0 $color,
+         2px -1px 0 $color,
+         2px  2px 0 $color,
+
+         1px -2px 0 $color,
+         1px -1px 0 $color,
+         1px  0px 0 $color,
+         1px -1px 0 $color,
+         1px  2px 0 $color,
+
+         0px -2px 0 $color,
+         0px -1px 0 $color,
+         0px  0px 0 $color,
+         0px -1px 0 $color,
+         0px  2px 0 $color,
+
+        -1px -2px 0 $color,
+        -1px -1px 0 $color,
+        -1px  0px 0 $color,
+        -1px -1px 0 $color,
+        -1px  2px 0 $color,
+
+        -2px -2px 0 $color,
+        -2px -1px 0 $color,
+        -2px  0px 0 $color,
+        -2px -1px 0 $color,
+        -2px  2px 0 $color,
+
+        2px 2px 2px #003031
+}
+
+
+
+
+
+/*================================================
+=            GENERAL LAYOUT & GLOBALS            =
+================================================*/
+
+// In critical.css
+// * {
+//     box-sizing: border-box;
+//     & > * {
+//         box-sizing: inherit;
+//     }
+// }
+
+// In critical.css
+// html, body {
+//     background: #C6CFD6;
+//     width: 100%;
+// }
+
+// In critical.css
+// #sc-page-wrapper {
+//     max-width: 480px;
+//     margin: auto;
+//     background: #fff;
+//     padding: $standardPadding;
+// }
+
+
+/*=================================================
+=            MODULE/COMPONENT SPECIFIC            =
+=================================================*/
+
+.logo-wrapper {
+    background: $red-vibrant;
+    background: linear-gradient(to bottom, $red-vibrant 0%, lighten($red-vibrant, 10%) 100%);
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    border: 2px solid #fff;
+    position: relative;
+    border-radius: 150px;
+    box-shadow: 1px 1px 2px 2px rgba(#003031, .2);
+    transform: rotate(-7deg);
+
+    .logo {
+        font-family: 'Sansita one', sans-serif;
+        font-size: 56px;
+        line-height: .8;
+        color: #fff;
+        margin: 0;
+        position: absolute;
+        width: 130px;
+        height: 130px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        // text-shadow: 1px 1px 1px rgba(#003031, .4);
+        @include text-border($red-vibrant);
+        border: 5px solid #fff;
+        border-radius: 130px;
+
+        .logo-inner {
+            display: block;
+            position: absolute;
+            top: 46%;
+            left: 52%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+
+

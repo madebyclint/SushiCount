@@ -1,0 +1,54 @@
+/**
+ *
+ * Sushi Count Styles
+ * Option 1
+ *
+ * Author: Clint Bush | @madebyclint - Twitter
+ *
+ */
+
+ /*===============================
+ =            IMPORTS            =
+ ===============================*/
+
+
+
+/*=================================
+=            VARIABLES            =
+=================================*/
+
+$standardPadding: 2rem;
+
+
+
+/*================================================
+=            GENERAL LAYOUT & GLOBALS            =
+================================================*/
+
+* {
+    box-sizing: border-box;
+    & > * {
+        box-sizing: inherit;
+    }
+}
+
+
+html, body {
+    background: #C6CFD6;
+    width: 100%;
+}
+
+#sc-page-wrapper {
+    max-width: 480px;
+    margin: auto;
+    background: #fff;
+    padding: $standardPadding;
+}
+
+
+/*=================================================
+=            MODULE/COMPONENT SPECIFIC            =
+=================================================*/
+
+
+
