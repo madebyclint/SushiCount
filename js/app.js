@@ -49,7 +49,7 @@
 
   var Modules = {
     SC: function() {
-      var thismod = angular.module('SushiCount', ['ngRoute', 'ngStorage']);
+      var thismod = angular.module('SushiCount', ['ngRoute', 'ngStorage', 'ngAnimate']);
 
 
       /*===============================
