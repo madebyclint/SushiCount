@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html ng-app="SushiCount">
+<head>
+  <title>Sushi Count</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+  <!-- Angular and Angular Mock references -->
+</head>
+<body>
+
+  <div>
+    <div id="navigation">
+      <!-- <a href="#/home">H</a>
+      <a href="#/about">A</a> -->
+      <!-- <a href="#/restaurants">R</a> -->
+    </div>
+
+    <div ng-view></div>
+  </div>
+
+  <script type="text/ng-template" id="embedded.home.html">
+      <h1>H</h1>
+  </script>
+  <script type="text/ng-template" id="embedded.about.html">
+      <h1>A</h1>
+  </script>
+  <script type="text/ng-template" id="embedded.restaurants.html">
+      <h1>R</h1>
+      <div ng-controller="RestaurantsController">
+        <div class="form-inline">
+          <ul class="list-group">
+            <!-- Loop over players using ng-repeat -->
+            <li class="list-group-item" ng-repeat="(key, restaurant) in restaurants">
+              <a ng-href="#/plates?restaurantid={{key}}">{{restaurant.name}}</a> ({{getPlateCount(key)}})
+            </li>
+          </ul>
+          <form name="restaurant_form" id="restaurant_form" ng-submit="submitForm(newRestaurant)" novalidate>
+            <div class="form-group" ng-class="{ 'has-error' : restaurant_form.restaurantName.$invalid && !restaurant_form.restaurantName.$pristine }">
+              <label for="restaurantName">Restaurant name: </label>
+              <input class="form-control" id="restaurantName" name="restaurantName" type="text" ng-model="newRestaurant.name" ng-minlength="1" ng-maxlength="50" required>
+              <p ng-show="restaurant_form.restaurantName.$error.minlength" class="help-block">Restaurant name is too short.</p>
+              <p ng-show="restaurant_form.restaurantName.$error.maxlength" class="help-block">Restaurant name is too long.</p>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="restaurant_form.$invalid">Add</button>
+            <button class="btn btn-secondary" ng-click="clearRestaurants()">Clear all restaurants</button>
+          </form>
+        </div>
+      </div>
+  </script>
+  <script type="text/ng-template" id="embedded.plates.html">
+      <h1><a href="#/restaurants">R</a>: {{restaurant | titlecase}}: P</h1>
+      <div ng-controller="PlatesController">
+        <div class="form-inline">
+          <ul class="list-group">
+            <!-- Loop over players using ng-repeat -->
+            <li class="list-group-item" ng-repeat="(key, plate) in plates">
+              <a ng-href="#/plate?restaurantid={{restaurantid}}&amp;plateid={{key}}">{{plate.name}}</a>
+              <div>
+                <button ng-click="decreasePlate(plate)">-</button>
+                <span>{{plate.count}}</span>
+                <button ng-click="increasePlate(plate)">+</button>
+              </div>
+              <span>@{{plate.price | currency : USD : 2}}</span>
+              <span>= {{getSubtotal(plate.price, plate.count) | currency : USD : 2}}</span>
+            </li>
+            <li>Total: {{getTotal() | currency : USD : 2}}</li>
+          </ul>
+          <form name="plate_form" id="plate_form" ng-submit="submitForm(newPlate)" novalidate>
+            <div class="form-group" ng-class="{ 'has-error' : plate_form.plateName.$invalid && !plate_form.plateName.$pristine }">
+              <label for="plateName">Plate name: </label>
+              <input class="form-control" id="plateName" name="plateName" type="text" ng-model="newPlate.name" ng-minlength="1" ng-maxlength="50" required>
+              <p ng-show="plate_form.plateName.$error.minlength" class="help-block">Plate name is too short.</p>
+              <p ng-show="plate_form.plateName.$error.maxlength" class="help-block">Plate name is too long.</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : plate_form.platePrice.$invalid && !plate_form.platePrice.$pristine }">
+              <label for="platePrice">Plate price: $ </label>
+              <input class="form-control" id="platePrice" name="platePrice" type="number" min="0" max="1000" ng-model="newPlate.price" required>
+              <p ng-show="plate_form.platePrice.$error.min" class="help-block">Plate count is too low.</p>
+              <p ng-show="plate_form.platePrice.$error.max" class="help-block">Plate count is too high.</p>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="plate_form.$invalid">Add</button>
+            <button class="btn btn-secondary" ng-click="clearPlates()">Clear all plates</button>
+          </form>
+        </div>
+      </div>
+  </script>
+  <script type="text/ng-template" id="embedded.plate.html">
+      <h1><a ng-href="#/plates?restaurantid={{restaurantid}}">{{restaurant | titlecase}}</a>: P: {{plate.name | titlecase}}</h1>
+      <div ng-controller="PlateController">
+        <div class="form-inline">
+          <!-- <form name="plate_details_form" id="plate_details_form">
+            <input class="form-control" type="text" ng-model="plate.name" >
+            <input class="form-control" type="text" ng-model="plate.price" >
+            <button class="btn btn-default" ng-click="updatePlate(plate)">Update Plate Details</button>
+            <button class="btn btn-default" ng-click="deletePlate()">Delete Plate</button>
+          </form> -->
+          <form name="plate_details_form" id="plate_details_form" ng-submit="submitForm(plate)" novalidate>
+            <div class="form-group" ng-class="{ 'has-error' : plate_details_form.plateName.$invalid && !plate_details_form.plateName.$pristine }">
+              <label for="plateName">Plate name: </label>
+              <input class="form-control" id="plateName" name="plateName" type="text" ng-model="plate.name" ng-minlength="1" ng-maxlength="50" required>
+              <p ng-show="plate_details_form.plateName.$error.minlength" class="help-block">Plate name is too short.</p>
+              <p ng-show="plate_details_form.plateName.$error.maxlength" class="help-block">Plate name is too long.</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : plate_details_form.platePrice.$invalid && !plate_details_form.platePrice.$pristine }">
+              <label for="platePrice">Plate price: $ </label>
+              <input class="form-control" id="platePrice" name="platePrice" type="number" min="0" max="1000" ng-model="plate.price" required>
+              <p ng-show="plate_details_form.platePrice.$error.min" class="help-block">Plate count is too low.</p>
+              <p ng-show="plate_details_form.platePrice.$error.max" class="help-block">Plate count is too high.</p>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="plate_details_form.$invalid">Update plate details</button>
+            <button class="btn btn-secondary" ng-click="deletePlate()">Delete plate</button>
+          </form>
+        </div>
+      </div>
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <link rel="stylesheet" href="styles/main.css">
+</body>
+</html>
