@@ -12,6 +12,7 @@
  ===============================*/
 
  @import url('http://fonts.googleapis.com/css?family=Sansita+One');
+ @import url('http://fonts.googleapis.com/css?family=Kameron');
 
 
 
@@ -22,11 +23,41 @@
 // In critical.css
 // $standardPadding: 2rem;
 
+$logo-size: 150px;
 
 // COLORS
-
 $red-vibrant: #CE0000;
 $red-vibrant-dark: darken($red-vibrant, .0);
+
+// Plate Colors
+$red: $red-vibrant; // boston university red
+$orange: #FA7300; // chilean fire
+$yellow: #FFC100; // fluorescent orange
+$green-light: #ace500; // inch worm
+$green: #007f00; // green
+$purple-light: #808AC9; // ship cove
+$blue-light: #009EDE; // cerulean
+$blue: #005de0; // navy blue
+$blue-dark: #0A316D; // dark midnight blue
+$gray: #A3ABB2; // gray chateau
+$gray-dark: #2D2D2D; // bunker
+$black: #000;
+$white: #fff;
+
+// Plate Classes
+.red { background-color: $red; }
+.orange { background-color: $orange; }
+.yellow { background-color: $yellow; }
+.green-light { background-color: $green-light; }
+.green { background-color: $green; }
+.purple-light { background-color: $purple-light; }
+.blue-light { background-color: $blue-light; }
+.blue { background-color: $blue; }
+.blue-dark { background-color: $blue-dark; }
+.gray { background-color: $gray; }
+.gray-dark { background-color: $gray-dark; }
+.black { background-color: $black; }
+.white { background-color: $white; }
 
 
 
@@ -116,6 +147,11 @@ ul.reset {
     }
 }
 
+* {
+    font-family: Kameron, Georgia, serif;
+    text-align: center;
+}
+
 
 /*=============================
 =            PAGES            =
@@ -123,6 +159,10 @@ ul.reset {
 
 .views {
     background: #fff;
+}
+
+#sc-page-wrapper {
+    overflow: hidden;
 }
 
 
@@ -170,8 +210,8 @@ ul.reset {
 }
 
 
-.ng-enter { animation: scaleUp 0.5s both ease-in; z-index: 8888; }
-.ng-leave { animation: slideOutLeft 0.5s both ease-in; z-index: 9999; }
+// .ng-enter { animation: slideInRight 0.2s both ease-in; z-index: 8888; }
+// .ng-leave { animation: slideOutLeft 0.2s both ease-in; z-index: 9999; }
 
 
 
@@ -180,17 +220,26 @@ ul.reset {
 =            MODULE/COMPONENT SPECIFIC            =
 =================================================*/
 
+header {
+    height: 40px;
+    background: #CE0000;
+    text-align: center;
+}
+
 .logo-wrapper {
     background: $red-vibrant;
     background: linear-gradient(to bottom, $red-vibrant 0%, lighten($red-vibrant, 10%) 100%);
-    width: 150px;
-    height: 150px;
+    width: $logo-size;
+    height: $logo-size;
     display: inline-block;
-    border: 2px solid #fff;
+    border: 20px solid #fff;
+    box-sizing: content-box;
     position: relative;
-    border-radius: 150px;
-    box-shadow: 1px 1px 2px 2px rgba(#003031, .2);
-    transform: rotate(-7deg);
+    top: -75px;
+    left: -5px;
+    border-radius: $logo-size;
+    // box-shadow: 1px 1px 2px 2px rgba(#003031, .2);
+    transform: rotate(-7deg) scale(.5);
 
     .logo {
         font-family: 'Sansita one', sans-serif;
@@ -223,8 +272,8 @@ ul.reset {
     li {
         background: #E7E7EF;
         display: inline-block;
-        width: calc(50% - 4px);
-        padding-top: 50%;
+        width: calc(50% - 20px);
+        padding-top: calc(50% - 20px);
         height: 0;
         margin: 2px;
         vertical-align: top;
@@ -243,6 +292,22 @@ ul.reset {
                 background: darken(#E7E7EF, 5%);
             }
         }
+    }
+}
+
+.color-inputs {
+    label {
+        width: 48px;
+        height: 48px;
+        border-radius: 48px;
+        display: inline-block;
+        vertical-align: top;
+        border: 2px solid rgba($black, .5);
+        text-indent: -9999px;
+        margin: .3rem;
+    }
+    input {
+        display: none;
     }
 }
 

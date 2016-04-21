@@ -83,6 +83,20 @@
           };
       });
 
+      // Came from the comments here:  https://gist.github.com/maruf-nc/5625869
+      thismod.filter('initials', function() {
+          return function (input) {
+              var words = input.split(' ');
+              var initials = [];
+              words.map(function(word) {
+                initials.push(word.charAt(0).toUpperCase());
+              });
+              return initials.join('');
+          };
+      });
+
+
+
       /*=====  End of FILTERS  ======*/
 
 
@@ -104,6 +118,8 @@
           $scope.restaurants.push(newRestaurant);
           $localStorage.scRestaurants = $scope.restaurants;
           Helpers.reset(document.getElementById('restaurant_form'), 'input');
+          // window.location = '#/plates?restaurantid=' + $scope.restaurantid;
+          window.location = '#/restaurants';
         };
         $scope.clearRestaurants = function() {
           var r = confirm('Are you sure you want to clear all your saved restaurants?\nYou will not be able to undo this.');
@@ -219,8 +235,16 @@
               templateUrl: 'embedded.restaurants.html',
               controller: 'RestaurantsController'
           }).
+          when('/addrestaurant', {
+              templateUrl: 'embedded.addrestaurant.html',
+              controller: 'RestaurantsController'
+          }).
           when('/plates', {
               templateUrl: 'embedded.plates.html',
+              controller: 'PlatesController'
+          }).
+          when('/addplate', {
+              templateUrl: 'embedded.addplate.html',
               controller: 'PlatesController'
           }).
           when('/plate', {
