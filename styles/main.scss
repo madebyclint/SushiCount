@@ -28,36 +28,9 @@ $logo-size: 150px;
 // COLORS
 $red-vibrant: #CE0000;
 $red-vibrant-dark: darken($red-vibrant, .0);
-
-// Plate Colors
-$red: $red-vibrant; // boston university red
-$orange: #FA7300; // chilean fire
-$yellow: #FFC100; // fluorescent orange
-$green-light: #ace500; // inch worm
-$green: #007f00; // green
-$purple-light: #808AC9; // ship cove
-$blue-light: #009EDE; // cerulean
-$blue: #005de0; // navy blue
-$blue-dark: #0A316D; // dark midnight blue
-$gray: #A3ABB2; // gray chateau
-$gray-dark: #2D2D2D; // bunker
 $black: #000;
 $white: #fff;
 
-// Plate Classes
-.red { background-color: $red; }
-.orange { background-color: $orange; }
-.yellow { background-color: $yellow; }
-.green-light { background-color: $green-light; }
-.green { background-color: $green; }
-.purple-light { background-color: $purple-light; }
-.blue-light { background-color: $blue-light; }
-.blue { background-color: $blue; }
-.blue-dark { background-color: $blue-dark; }
-.gray { background-color: $gray; }
-.gray-dark { background-color: $gray-dark; }
-.black { background-color: $black; }
-.white { background-color: $white; }
 
 
 
@@ -288,26 +261,48 @@ header {
                 @extend %center-both;
             }
 
-            &:hover {
-                background: darken(#E7E7EF, 5%);
-            }
+            // &:hover {
+            //     background: darken(#E7E7EF, 5%);
+            // }
         }
     }
 }
 
 .color-inputs {
+    display: inline-block;
+    vertical-align: top;
     label {
         width: 48px;
         height: 48px;
+        display: block;
         border-radius: 48px;
-        display: inline-block;
-        vertical-align: top;
         border: 2px solid rgba($black, .5);
         text-indent: -9999px;
         margin: .3rem;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+
+        .shadow {
+            display: block;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            &.flat {
+                top: 0;
+                left: -50%;
+                background-color: rgba($black, .1)
+            }
+            &.crescent {
+                top: -10px;
+                left: -10px;
+                border-radius: 100%;
+                box-shadow: 10px 10px 0 0 rgba($black, .1);
+            }
+        }
     }
     input {
-        display: none;
+        // display: none;
     }
 }
 

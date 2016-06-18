@@ -130,23 +130,37 @@
         };
       });
 
-      thismod.controller('PlatesController', function ($scope, $localStorage, $sessionStorage, $location, $filter) {
+      thismod.controller('PlatesController', function ($scope, $localStorage, $sessionStorage, $location, $filter, $http) {
         $scope.restaurants = $localStorage.scRestaurants;
         $scope.restaurantid = $location.search().restaurantid;
         $scope.restaurant = $scope.restaurants[$scope.restaurantid].name;
-        // console.log($localStorage);
+        $http.get('/data/plateoptions.json').success(function(data) {
+          $scope.plateoptions = data;
+        });
+        $scope.selectedColor = '';
         $scope.plates = $scope.restaurants[$scope.restaurantid].plates ? $scope.restaurants[$scope.restaurantid].plates : [];
+        console.log($scope.plates);
         $scope.submitForm = function(plate) {
+            console.log('submit', plate);
             // check to make sure the form is completely valid
             if($scope.plate_form.$valid) {
               $scope.addPlate(plate);
             }
         };
+        $scope.validate = function(id) {
+          var el = document.getElementById(id);
+          el.focus();
+          setTimeout(function() {
+            el.select();
+          }, 100);
+        };
         $scope.addPlate = function(newPlateObj) {
           var newPlate = angular.copy(newPlateObj);
           newPlate.slug = $filter('escape')(newPlate.name);
           newPlate.slug = newPlate.slug.toLowerCase();
+          newPlate.color = $scope.selectedColor;
           newPlate.count = 0;
+          console.log(newPlate);
           $scope.plates.push(newPlate);
           $localStorage.scRestaurants[$scope.restaurantid].plates = $scope.plates;
           Helpers.reset(document.getElementById('plate_form'), 'input');
@@ -162,13 +176,11 @@
         //   $localStorage.scReceipts =
         // };
         $scope.resetCounts = function() {
-          var r = confirm('Are you sure you want to clear all your saved plates?\nYou will not be able to undo this.');
+          var r = confirm('Are you sure you want to clear your plate count?\nYou will not be able to undo this.');
           if (r === true) {
               $scope.plates.map(function(plate) {
                 plate.count = 0;
               });
-          } else {
-              // alert('cancel');
           }
         };
         $scope.increasePlate = function(plate) {

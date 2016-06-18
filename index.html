@@ -94,33 +94,13 @@
                   <p class="total">Total: {{getSubtotal(plate.price, plate.count) | currency : USD : 2}}</p>
                 </div>
               </span>
-              <!-- <a ng-href="#/plate?restaurantid={{restaurantid}}&amp;plateid={{key}}"><span class="text-wrapper">{{plate.name}} <span class="count">({{plate.count}})</span></span></a>
-              <div>
-                <button ng-click="decreasePlate(plate)">-</button>
-                <span>{{plate.count}}</span>
-                <button ng-click="increasePlate(plate)">+</button>
-              </div>
-              <span>@{{plate.price | currency : USD : 2}}</span>
-              <span>= {{getSubtotal(plate.price, plate.count) | currency : USD : 2}}</span> -->
             </li>
             <li class="list-group-item">
               <a ng-href="#/addplate?restaurantid={{restaurantid}}"><span class="text-wrapper"><h2>+</h2>Add a new plate</a>
             </li>
           </ul>
           <form name="plate_form" id="plate_form" ng-submit="submitForm(newPlate)" novalidate>
-            <!-- <div class="form-group" ng-class="{ 'has-error' : plate_form.plateName.$invalid && !plate_form.plateName.$pristine }">
-              <label for="plateName">Plate name: </label>
-              <input class="form-control" id="plateName" name="plateName" type="text" ng-model="newPlate.name" ng-minlength="1" ng-maxlength="50" required>
-              <p ng-show="plate_form.plateName.$error.minlength" class="help-block">Plate name is too short.</p>
-              <p ng-show="plate_form.plateName.$error.maxlength" class="help-block">Plate name is too long.</p>
-            </div>
-            <div class="form-group" ng-class="{ 'has-error' : plate_form.platePrice.$invalid && !plate_form.platePrice.$pristine }">
-              <label for="platePrice">Plate price: $ </label>
-              <input class="form-control" id="platePrice" name="platePrice" type="number" min="0" max="1000" ng-model="newPlate.price" required>
-              <p ng-show="plate_form.platePrice.$error.min" class="help-block">Plate count is too low.</p>
-              <p ng-show="plate_form.platePrice.$error.max" class="help-block">Plate count is too high.</p>
-            </div>
-            <button type="submit" class="btn btn-primary" ng-disabled="plate_form.$invalid">Add</button> -->
+            <button class="btn btn-secondary" ng-click="resetCounts()">Clear plate count</button>
             <button class="btn btn-secondary" ng-click="clearPlates()">Clear all plates</button>
           </form>
         </div>
@@ -132,41 +112,20 @@
       <div ng-controller="PlatesController">
         <div class="form-inline">
           <form name="plate_form" id="plate_form" ng-submit="submitForm(newPlate)" novalidate>
-            <div class="form-group color-inputs">
-              <label for="plate-color-red" class="plate-color red">red</label>
-              <input type="checkbox" name="plate-color" value="red" id="plate-color-red">
-              <label for="plate-color-orange" class="plate-color orange">orange</label>
-              <input type="checkbox" name="plate-color" value="orange" id="plate-color-orange">
-              <label for="plate-color-yellow" class="plate-color yellow">yellow</label>
-              <input type="checkbox" name="plate-color" value="yellow" id="plate-color-yellow">
-              <label for="plate-color-green-light" class="plate-color green-light">green-light</label>
-              <input type="checkbox" name="plate-color" value="green-light" id="plate-color-green-light">
-              <label for="plate-color-green" class="plate-color green">green</label>
-              <input type="checkbox" name="plate-color" value="green" id="plate-color-green">
-              <label for="plate-color-purple-light" class="plate-color purple-light">purple-light</label>
-              <input type="checkbox" name="plate-color" value="purple-light" id="plate-color-purple-light">
-              <label for="plate-color-blue-light" class="plate-color blue-light">blue-light</label>
-              <input type="checkbox" name="plate-color" value="blue-light" id="plate-color-blue-light">
-              <label for="plate-color-blue" class="plate-color blue">blue</label>
-              <input type="checkbox" name="plate-color" value="blue" id="plate-color-blue">
-              <label for="plate-color-blue-dark" class="plate-color blue-dark">blue-dark</label>
-              <input type="checkbox" name="plate-color" value="blue-dark" id="plate-color-gray">
-              <label for="plate-color-gray" class="plate-color gray">gray</label>
-              <input type="checkbox" name="plate-color" value="gray" id="plate-color-gray">
-              <label for="plate-color-gray-dark" class="plate-color gray-dark">gray-dark</label>
-              <input type="checkbox" name="plate-color" value="gray-dark" id="plate-color-gray-dark">
-              <label for="plate-color-black" class="plate-color black">black</label>
-              <input type="checkbox" name="plate-color" value="black" id="plate-color-black">
-              <label for="plate-color-white" class="plate-color white">white</label>
-              <input type="checkbox" name="plate-color" value="white" id="plate-color-white">
+            <div class="form-group color-inputs" ng-repeat="platecolor in plateoptions.colors">
+              <label for="plate-color-{{platecolor.name | lowercase}}" class="plate-color {{platecolor.name | lowercase}}" style="background-color: {{platecolor.hex}};"><span class="shadow flat">{{platecolor.name | lowercase}}</span></label>
+              <input class="form-control" type="radio" id="plate-color-{{platecolor.name | lowercase}}" ng-model="$parent.selectedColor" ng-value="platecolor.hex" ng-change="validate('plateName')">
             </div>
             <div class="form-group" ng-class="{ 'has-error' : plate_form.plateName.$invalid && !plate_form.plateName.$pristine }">
               <label for="plateName">Plate name: </label>
-              <input class="form-control" id="plateName" name="plateName" type="text" ng-model="newPlate.name" ng-minlength="1" ng-maxlength="50" required>
+              <input class="form-control" id="plateName" name="plateName" type="text" ng-model="newPlate.name" ng-minlength="1" ng-maxlength="50" required placeholder="{{selectedColor | titlecase}}">
               <p ng-show="plate_form.plateName.$error.minlength" class="help-block">Plate name is too short.</p>
               <p ng-show="plate_form.plateName.$error.maxlength" class="help-block">Plate name is too long.</p>
             </div>
             <div class="form-group" ng-class="{ 'has-error' : plate_form.platePrice.$invalid && !plate_form.platePrice.$pristine }">
+            <p>{{newPlate.name}}</p>
+            <p>{{newPlate.color}}</p>
+            <p>{{selectedColor}}</p>
               <label for="platePrice">Plate price: $ </label>
               <input class="form-control" id="platePrice" name="platePrice" type="number" min="0" max="1000" ng-model="newPlate.price" required>
               <p ng-show="plate_form.platePrice.$error.min" class="help-block">Plate count is too low.</p>

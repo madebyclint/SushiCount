@@ -14,45 +14,6 @@
 /*=================================
 =            VARIABLES            =
 =================================*/
-.red {
-  background-color: #CE0000; }
-
-.orange {
-  background-color: #FA7300; }
-
-.yellow {
-  background-color: #FFC100; }
-
-.green-light {
-  background-color: #ace500; }
-
-.green {
-  background-color: #007f00; }
-
-.purple-light {
-  background-color: #808AC9; }
-
-.blue-light {
-  background-color: #009EDE; }
-
-.blue {
-  background-color: #005de0; }
-
-.blue-dark {
-  background-color: #0A316D; }
-
-.gray {
-  background-color: #A3ABB2; }
-
-.gray-dark {
-  background-color: #2D2D2D; }
-
-.black {
-  background-color: #000; }
-
-.white {
-  background-color: #fff; }
-
 /*===================================================
 =            MIXINS/FUNCTIONS/EXTENSIONS            =
 ===================================================*/
@@ -191,18 +152,32 @@ header {
   .list-group.blocks li > * {
     width: 100%;
     height: 100%; }
-    .list-group.blocks li > *:hover {
-      background: #d8d8e5; }
 
-.color-inputs label {
-  width: 48px;
-  height: 48px;
-  border-radius: 48px;
+.color-inputs {
   display: inline-block;
-  vertical-align: top;
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  text-indent: -9999px;
-  margin: .3rem; }
-
-.color-inputs input {
-  display: none; }
+  vertical-align: top; }
+  .color-inputs label {
+    width: 48px;
+    height: 48px;
+    display: block;
+    border-radius: 48px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    text-indent: -9999px;
+    margin: .3rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer; }
+    .color-inputs label .shadow {
+      display: block;
+      height: 100%;
+      width: 100%;
+      position: absolute; }
+      .color-inputs label .shadow.flat {
+        top: 0;
+        left: -50%;
+        background-color: rgba(0, 0, 0, 0.1); }
+      .color-inputs label .shadow.crescent {
+        top: -10px;
+        left: -10px;
+        border-radius: 100%;
+        box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.1); }
