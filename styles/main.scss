@@ -12,6 +12,7 @@
  ===============================*/
 
  @import url('http://fonts.googleapis.com/css?family=Sansita+One');
+ @import url('http://fonts.googleapis.com/css?family=Kameron');
 
 
 
@@ -22,11 +23,14 @@
 // In critical.css
 // $standardPadding: 2rem;
 
+$logo-size: 150px;
 
 // COLORS
-
 $red-vibrant: #CE0000;
 $red-vibrant-dark: darken($red-vibrant, .0);
+$black: #000;
+$white: #fff;
+
 
 
 
@@ -116,6 +120,11 @@ ul.reset {
     }
 }
 
+* {
+    font-family: Kameron, Georgia, serif;
+    text-align: center;
+}
+
 
 /*=============================
 =            PAGES            =
@@ -123,6 +132,10 @@ ul.reset {
 
 .views {
     background: #fff;
+}
+
+#sc-page-wrapper {
+    overflow: hidden;
 }
 
 
@@ -170,8 +183,8 @@ ul.reset {
 }
 
 
-.ng-enter { animation: scaleUp 0.5s both ease-in; z-index: 8888; }
-.ng-leave { animation: slideOutLeft 0.5s both ease-in; z-index: 9999; }
+// .ng-enter { animation: slideInRight 0.2s both ease-in; z-index: 8888; }
+// .ng-leave { animation: slideOutLeft 0.2s both ease-in; z-index: 9999; }
 
 
 
@@ -180,17 +193,27 @@ ul.reset {
 =            MODULE/COMPONENT SPECIFIC            =
 =================================================*/
 
+header {
+    height: 40px;
+    background: #CE0000;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
 .logo-wrapper {
     background: $red-vibrant;
     background: linear-gradient(to bottom, $red-vibrant 0%, lighten($red-vibrant, 10%) 100%);
-    width: 150px;
-    height: 150px;
+    width: $logo-size;
+    height: $logo-size;
     display: inline-block;
-    border: 2px solid #fff;
+    border: 20px solid #fff;
+    box-sizing: content-box;
     position: relative;
-    border-radius: 150px;
-    box-shadow: 1px 1px 2px 2px rgba(#003031, .2);
-    transform: rotate(-7deg);
+    top: -75px;
+    left: -5px;
+    border-radius: $logo-size;
+    // box-shadow: 1px 1px 2px 2px rgba(#003031, .2);
+    transform: rotate(-7deg) scale(.5);
 
     .logo {
         font-family: 'Sansita one', sans-serif;
@@ -222,13 +245,14 @@ ul.reset {
 .list-group.blocks {
     li {
         background: #E7E7EF;
-        display: inline-block;
-        width: calc(50% - 4px);
-        padding-top: 50%;
+        display: block;
+        width: calc(50% - 20px);
+        padding-top: calc(50% - 20px);
+        margin: 0 10px 20px;
         height: 0;
-        margin: 2px;
         vertical-align: top;
         position: relative;
+        float: left;
 
         &>* {
             @extend %center-both;
@@ -239,10 +263,48 @@ ul.reset {
                 @extend %center-both;
             }
 
-            &:hover {
-                background: darken(#E7E7EF, 5%);
+            // &:hover {
+            //     background: darken(#E7E7EF, 5%);
+            // }
+        }
+    }
+}
+
+.color-inputs {
+    display: inline-block;
+    vertical-align: top;
+    label {
+        width: 48px;
+        height: 48px;
+        display: block;
+        border-radius: 48px;
+        border: 2px solid rgba($black, .5);
+        text-indent: -9999px;
+        margin: .3rem;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+
+        .shadow {
+            display: block;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            &.flat {
+                top: 0;
+                left: -50%;
+                background-color: rgba($black, .1)
+            }
+            &.crescent {
+                top: -10px;
+                left: -10px;
+                border-radius: 100%;
+                box-shadow: 10px 10px 0 0 rgba($black, .1);
             }
         }
+    }
+    input {
+        // display: none;
     }
 }
 

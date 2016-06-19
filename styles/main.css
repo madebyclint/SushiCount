@@ -10,6 +10,7 @@
  =            IMPORTS            =
  ===============================*/
 @import url("http://fonts.googleapis.com/css?family=Sansita+One");
+@import url("http://fonts.googleapis.com/css?family=Kameron");
 /*=================================
 =            VARIABLES            =
 =================================*/
@@ -33,11 +34,18 @@ ul.reset {
   ul.reset li {
     list-style-type: none; }
 
+* {
+  font-family: Kameron, Georgia, serif;
+  text-align: center; }
+
 /*=============================
 =            PAGES            =
 =============================*/
 .views {
   background: #fff; }
+
+#sc-page-wrapper {
+  overflow: hidden; }
 
 /*==================================
 =            ANIMATIONS            =
@@ -89,28 +97,28 @@ ul.reset {
   to {
     transform: translateY(0); } }
 
-.ng-enter {
-  animation: scaleUp 0.5s both ease-in;
-  z-index: 8888; }
-
-.ng-leave {
-  animation: slideOutLeft 0.5s both ease-in;
-  z-index: 9999; }
-
 /*=================================================
 =            MODULE/COMPONENT SPECIFIC            =
 =================================================*/
+header {
+  height: 40px;
+  background: #CE0000;
+  text-align: center;
+  margin-bottom: 40px; }
+
 .logo-wrapper {
   background: #CE0000;
   background: linear-gradient(to bottom, #CE0000 0%, #ff0202 100%);
   width: 150px;
   height: 150px;
   display: inline-block;
-  border: 2px solid #fff;
+  border: 20px solid #fff;
+  box-sizing: content-box;
   position: relative;
+  top: -75px;
+  left: -5px;
   border-radius: 150px;
-  box-shadow: 1px 1px 2px 2px rgba(0, 48, 49, 0.2);
-  transform: rotate(-7deg); }
+  transform: rotate(-7deg) scale(0.5); }
   .logo-wrapper .logo {
     font-family: 'Sansita one', sans-serif;
     font-size: 56px;
@@ -135,15 +143,43 @@ ul.reset {
 
 .list-group.blocks li {
   background: #E7E7EF;
-  display: inline-block;
-  width: calc(50% - 4px);
-  padding-top: 50%;
+  display: block;
+  width: calc(50% - 20px);
+  padding-top: calc(50% - 20px);
+  margin: 0 10px 20px;
   height: 0;
-  margin: 2px;
   vertical-align: top;
-  position: relative; }
+  position: relative;
+  float: left; }
   .list-group.blocks li > * {
     width: 100%;
     height: 100%; }
-    .list-group.blocks li > *:hover {
-      background: #d8d8e5; }
+
+.color-inputs {
+  display: inline-block;
+  vertical-align: top; }
+  .color-inputs label {
+    width: 48px;
+    height: 48px;
+    display: block;
+    border-radius: 48px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    text-indent: -9999px;
+    margin: .3rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer; }
+    .color-inputs label .shadow {
+      display: block;
+      height: 100%;
+      width: 100%;
+      position: absolute; }
+      .color-inputs label .shadow.flat {
+        top: 0;
+        left: -50%;
+        background-color: rgba(0, 0, 0, 0.1); }
+      .color-inputs label .shadow.crescent {
+        top: -10px;
+        left: -10px;
+        border-radius: 100%;
+        box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.1); }

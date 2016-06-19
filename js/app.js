@@ -83,6 +83,20 @@
           };
       });
 
+      // Came from the comments here:  https://gist.github.com/maruf-nc/5625869
+      thismod.filter('initials', function() {
+          return function (input) {
+              var words = input.split(' ');
+              var initials = [];
+              words.map(function(word) {
+                initials.push(word.charAt(0).toUpperCase());
+              });
+              return initials.join('');
+          };
+      });
+
+
+
       /*=====  End of FILTERS  ======*/
 
 
@@ -104,6 +118,8 @@
           $scope.restaurants.push(newRestaurant);
           $localStorage.scRestaurants = $scope.restaurants;
           Helpers.reset(document.getElementById('restaurant_form'), 'input');
+          // window.location = '#/plates?restaurantid=' + $scope.restaurantid;
+          window.location = '#/restaurants';
         };
         $scope.clearRestaurants = function() {
           var r = confirm('Are you sure you want to clear all your saved restaurants?\nYou will not be able to undo this.');
@@ -114,22 +130,34 @@
         };
       });
 
-      thismod.controller('PlatesController', function ($scope, $localStorage, $sessionStorage, $location, $filter) {
+      thismod.controller('PlatesController', function ($scope, $localStorage, $sessionStorage, $location, $filter, $http) {
         $scope.restaurants = $localStorage.scRestaurants;
         $scope.restaurantid = $location.search().restaurantid;
         $scope.restaurant = $scope.restaurants[$scope.restaurantid].name;
-        // console.log($localStorage);
+        $http.get('/data/plateoptions.json').success(function(data) {
+          $scope.plateoptions = data;
+        });
+        $scope.selectedColor = '';
         $scope.plates = $scope.restaurants[$scope.restaurantid].plates ? $scope.restaurants[$scope.restaurantid].plates : [];
         $scope.submitForm = function(plate) {
+            console.log('submit', plate);
             // check to make sure the form is completely valid
             if($scope.plate_form.$valid) {
               $scope.addPlate(plate);
             }
         };
+        $scope.validate = function(id) {
+          var el = document.getElementById(id);
+          el.focus();
+          setTimeout(function() {
+            el.select();
+          }, 100);
+        };
         $scope.addPlate = function(newPlateObj) {
           var newPlate = angular.copy(newPlateObj);
           newPlate.slug = $filter('escape')(newPlate.name);
           newPlate.slug = newPlate.slug.toLowerCase();
+          newPlate.color = $scope.selectedColor;
           newPlate.count = 0;
           $scope.plates.push(newPlate);
           $localStorage.scRestaurants[$scope.restaurantid].plates = $scope.plates;
@@ -146,13 +174,11 @@
         //   $localStorage.scReceipts =
         // };
         $scope.resetCounts = function() {
-          var r = confirm('Are you sure you want to clear all your saved plates?\nYou will not be able to undo this.');
+          var r = confirm('Are you sure you want to clear your plate count?\nYou will not be able to undo this.');
           if (r === true) {
               $scope.plates.map(function(plate) {
                 plate.count = 0;
               });
-          } else {
-              // alert('cancel');
           }
         };
         $scope.increasePlate = function(plate) {
@@ -219,8 +245,16 @@
               templateUrl: 'embedded.restaurants.html',
               controller: 'RestaurantsController'
           }).
+          when('/addrestaurant', {
+              templateUrl: 'embedded.addrestaurant.html',
+              controller: 'RestaurantsController'
+          }).
           when('/plates', {
               templateUrl: 'embedded.plates.html',
+              controller: 'PlatesController'
+          }).
+          when('/addplate', {
+              templateUrl: 'embedded.addplate.html',
               controller: 'PlatesController'
           }).
           when('/plate', {

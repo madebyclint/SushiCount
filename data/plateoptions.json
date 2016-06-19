@@ -1,0 +1,57 @@
+{
+	"colors" : [
+		{
+			"name" : "red",
+			"hex" : "#CE0000"
+		},
+		{
+			"name" : "orange",
+			"hex" : "#FA7300"
+		},
+		{
+			"name" : "yellow",
+			"hex" : "#FFC100"
+		},
+		{
+			"name" : "green",
+			"hex" : "#007f00"
+		},
+		{
+			"name" : "green-light",
+			"hex" : "#ace500"
+		},
+		{
+			"name" : "blue",
+			"hex" : "#005de0"
+		},
+		{
+			"name" : "blue-light",
+			"hex" : "#009EDE"
+		},
+		{
+			"name" : "blue-dark",
+			"hex" : "#0A316D"
+		},
+		{
+			"name" : "purple-light",
+			"hex" : "#808AC9"
+		},
+		{
+			"name" : "gray",
+			"hex" : "#A3ABB2"
+		},
+		{
+			"name" : "gray-dark",
+			"hex" : "#2D2D2D"
+		},
+		{
+			"name" : "black",
+			"hex" : "#000"
+		},
+		{
+			"name" : "white",
+			"hex" : "#fff"
+		}
+	]
+}
+
