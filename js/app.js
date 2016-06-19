@@ -139,7 +139,6 @@
         });
         $scope.selectedColor = '';
         $scope.plates = $scope.restaurants[$scope.restaurantid].plates ? $scope.restaurants[$scope.restaurantid].plates : [];
-        console.log($scope.plates);
         $scope.submitForm = function(plate) {
             console.log('submit', plate);
             // check to make sure the form is completely valid
@@ -160,7 +159,6 @@
           newPlate.slug = newPlate.slug.toLowerCase();
           newPlate.color = $scope.selectedColor;
           newPlate.count = 0;
-          console.log(newPlate);
           $scope.plates.push(newPlate);
           $localStorage.scRestaurants[$scope.restaurantid].plates = $scope.plates;
           Helpers.reset(document.getElementById('plate_form'), 'input');

@@ -197,6 +197,7 @@ header {
     height: 40px;
     background: #CE0000;
     text-align: center;
+    margin-bottom: 40px;
 }
 
 .logo-wrapper {
@@ -244,13 +245,14 @@ header {
 .list-group.blocks {
     li {
         background: #E7E7EF;
-        display: inline-block;
+        display: block;
         width: calc(50% - 20px);
         padding-top: calc(50% - 20px);
+        margin: 0 10px 20px;
         height: 0;
-        margin: 2px;
         vertical-align: top;
         position: relative;
+        float: left;
 
         &>* {
             @extend %center-both;
